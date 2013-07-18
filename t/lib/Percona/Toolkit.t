@@ -67,21 +67,21 @@ foreach my $tool ( @vc_tools ) {
    }
 }
 
-my $bzr = can_run('bzr');
-SKIP: {
-   skip "Can't run bzr, skipping tag checking", 1 unless $bzr;
-   chomp(my $root = `$bzr root 2>/dev/null`);
-   skip '$trunk and bzr root differ, skipping tag checking'
-      unless $root eq $trunk;
-   
-   my @tags          = split /\n/, `$bzr tags`;
-   my ($current_tag) = $tags[-1] =~ /^(\S+)/;
-
-   is(
-      $current_tag,
-      $version,
-      "bzr tags and Percona::Toolkit::VERSION agree"
-   );
-}
+#my $bzr = can_run('bzr');
+#SKIP: {
+#   skip "Can't run bzr, skipping tag checking", 1 unless $bzr;
+#   chomp(my $root = `$bzr root 2>/dev/null`);
+#   skip '$trunk and bzr root differ, skipping tag checking'
+#      unless $root eq $trunk;
+#   
+#   my @tags          = split /\n/, `$bzr tags`;
+#   my ($current_tag) = $tags[-1] =~ /^(\S+)/;
+#
+#   is(
+#      $current_tag,
+#      $version,
+#      "bzr tags and Percona::Toolkit::VERSION agree"
+#   );
+#}
 
 done_testing;
