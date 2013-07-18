@@ -56,28 +56,28 @@ for my $n ( 1..16 ) {
 # #############################################################################
 
 $sb->load_file('master', 't/pt-log-player/samples/log.sql');
-`$trunk/bin/pt-log-player --base-dir $tmpdir --session-files 2 --split Thread_id $trunk/t/pt-log-player/samples/log001.txt`;
-`$cmd`;
+$output = `$trunk/bin/pt-log-player --base-dir $tmpdir --session-files 2 --split Thread_id $trunk/t/pt-log-player/samples/log001.txt 2>&1`;
+$output .= `$cmd 2>&1`;
 is_deeply(
    $dbh->selectall_arrayref('select * from mk_log_player_1.tbl1 where a = 100 OR a = 555;'),
    [[100], [555]],
    '--play made table changes',
-);
+) or diag($output);
 
 $sb->load_file('master', 't/pt-log-player/samples/log.sql');
 
-`$cmd --only-select`;
+$output = `$cmd --only-select 2>&1`;
 is_deeply(
    $dbh->selectall_arrayref('select * from mk_log_player_1.tbl1 where a = 100 OR a = 555;'),
    [],
    'No table changes with --only-select',
-);
+) or diag($output);
 
 # #############################################################################
 # Issue 418: mk-log-player dies trying to play statements with blank lines
 # #############################################################################
 diag(`rm -rf $tmpdir 2>/dev/null; mkdir $tmpdir`);
-`$trunk/bin/pt-log-player --split Thread_id --base-dir $tmpdir $trunk/t/lib/samples/slowlogs/slow020.txt`;
+$output = `$trunk/bin/pt-log-player --split Thread_id --base-dir $tmpdir $trunk/t/lib/samples/slowlogs/slow020.txt 2>&1`;
 
 ok(
    no_diff(
@@ -85,7 +85,7 @@ ok(
       "t/pt-log-player/samples/play_slow020.txt",
    ),
    'Play session from log with blank lines in queries (issue 418)' 
-);
+) or diag($output);
 
 diag(`rm session-results-*.txt 2>/dev/null`);
 
