@@ -53,7 +53,7 @@ BEGIN {
 # ###########################################################################
 {
 package Percona::Toolkit;
-our $VERSION = '2.1.9';
+our $VERSION = '2.1.10';
 
 1;
 }
@@ -11963,6 +11963,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-table-checksum 2.1.9
+pt-table-checksum 2.1.10
 
 =cut
