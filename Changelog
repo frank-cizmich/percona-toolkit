@@ -1,5 +1,8 @@
 Changelog for Percona Toolkit
 
+  * Fixed bug 1279502: --version-check behaves like spyware
+  * Fixed bug 1199589: pt-archiver deletes data despite --dry-run
+
 v2.1.10 released 2013-07-18
 
   * Fixed bug  947893: Some tools use @@hostname without /*!50038*/
